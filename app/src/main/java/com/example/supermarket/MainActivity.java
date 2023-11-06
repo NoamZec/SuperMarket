@@ -33,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent i = new Intent(MainActivity.this, SignInActivity.class);
+        startActivity(i);
+
+     /*
         register1 = findViewById(R.id.register1);
         register1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,5 +97,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
             finish();
         }
+
+
+      */
     }
 }

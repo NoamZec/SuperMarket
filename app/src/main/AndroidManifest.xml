@@ -13,6 +13,12 @@
         android:theme="@style/Theme.SuperMarket"
         tools:targetApi="31">
         <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignInActivity"
+            android:exported="false" />
+        <activity
             android:name=".Regiser_Activity"
             android:exported="false" />
         <activity
