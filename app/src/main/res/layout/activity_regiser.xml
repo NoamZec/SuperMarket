@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CDC68A"
-    tools:context=".Regiser_Activity">
+    tools:context=".RegisterActivity">
 
     <TextView
         android:id="@+id/SignIn"
@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.09" />
 
     <EditText
-        android:id="@+id/Email"
+        android:id="@+id/email13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -37,7 +37,7 @@
         app:layout_constraintVertical_bias="0.294" />
 
     <EditText
-        android:id="@+id/Password"
+        android:id="@+id/password8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -53,7 +53,7 @@
 
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/LogIn2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="register"
@@ -65,20 +65,23 @@
         app:layout_constraintVertical_bias="0.65" />
 
     <TextView
-        android:gravity="center"
         android:id="@+id/loginNow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="click to register"
         android:textSize="20sp"
-        android:layout_marginTop="20dp"
         android:textStyle="bold"
-        tools:ignore="InvalidId,MissingConstraints"
-        tools:layout_editor_absoluteX="165dp"
-        tools:layout_editor_absoluteY="378dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.544"
+        tools:ignore="InvalidId,MissingConstraints" />
 
     <Button
-        android:id="@+id/LogIn"
+        android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign in"

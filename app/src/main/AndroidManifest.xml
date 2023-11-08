@@ -19,7 +19,7 @@
             android:name=".SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".Regiser_Activity"
+            android:name=".RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

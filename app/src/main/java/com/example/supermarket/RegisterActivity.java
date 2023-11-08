@@ -10,34 +10,36 @@ import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class SignInActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     private EditText password,email;
-    private Button register2;
     private FireBase fb;
-    Button login;
+    private Button register;
+    private Button login;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
-        register2 = findViewById(R.id.register2);
+        setContentView(R.layout.activity_regiser);
         fb = new FireBase(FirebaseAuth.getInstance(), this);
-        login = findViewById(R.id.LogIn2);
-        email = findViewById(R.id.email);
-        password = findViewById(R.id.password4);
+        register = findViewById(R.id.LogIn2);
+        login = findViewById(R.id.login);
+        email = findViewById(R.id.email13);
+        password = findViewById(R.id.password8);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fb.register(email.getText().toString(), password.getText().toString());
+            }
+        });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fb.signIn(email.getText().toString(), password.getText().toString());
-            }
-        });
-        register2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(SignInActivity.this, RegisterActivity.class);
+                Intent i = new Intent(RegisterActivity.this, SignInActivity.class);
                 startActivity(i);
             }
         });
     }
+
 }

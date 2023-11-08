@@ -13,7 +13,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class FireBase {//constructor
-    private FirebaseAuth auth;
+    private final FirebaseAuth auth;
     private Context context; // toast, move from one activity to another
     public FireBase(FirebaseAuth auth, Context context){
         this.auth = auth;
@@ -38,22 +38,26 @@ public class FireBase {//constructor
             }
         });
     }
-    public void register(String email, String password){
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {//create the register site
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {//move to Home
-                Intent intent = new Intent(context.getApplicationContext(), HomeActivity.class);
-                context.startActivity(intent);
-                Toast.makeText(context, "Register Successfully", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(context, e.getMessage().toString(), Toast.LENGTH_LONG).show();
-            }
-        });
+    public void register(String email, String password) {
+        if(!email.isEmpty() && !password.isEmpty()) {
+
+            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {//create the register site
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {//move to Home
+                    Intent intent = new Intent(context.getApplicationContext(), HomeActivity.class);
+                    context.startActivity(intent);
+                    Toast.makeText(context, "Register Successfully", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, e.getMessage().toString(), Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        else{
+            Toast.makeText(context, "One of the fields is empty", Toast.LENGTH_LONG).show();
+        }
     }
     public FirebaseAuth getAuth(){return  auth;}
-
-    public void setAuth(FirebaseAuth auth){this.auth = auth;}
 }
