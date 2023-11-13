@@ -1,22 +1,29 @@
 package com.example.supermarket;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class SignInActivity extends AppCompatActivity {
+import java.util.concurrent.Executor;
+
+public class SignInActivity<MainActivity> extends AppCompatActivity {
 
     private EditText password,email;
     private Button register2;
     private FireBase fb;
-    Button login;
-
+    private  Button login;
+    private Button fingerPrint;
+    private BiometricPrompt promptInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +33,18 @@ public class SignInActivity extends AppCompatActivity {
         login = findViewById(R.id.LogIn2);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password4);
+        fingerPrint = findViewById(R.id.fingerPrint);
+
+        fingerPrint.setOnClickListener(v -> {//start the finger print
+            BiometricPrompt.PromptInfo promptInfo =
+                    new BiometricPrompt.PromptInfo.Builder()
+                            .setTitle("Biometric login for my app")
+                            .setSubtitle("Log in using your biometric credential")
+                            .setNegativeButtonText("Cancel")
+                            .build();
+            BiometricPrompt biometricPrompt1 = AfterFingerPrint();
+            biometricPrompt1.authenticate(promptInfo);
+        });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,5 +58,27 @@ public class SignInActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+    public BiometricPrompt AfterFingerPrint() {//After fingerPrint
+        Executor executor = ContextCompat.getMainExecutor(SignInActivity.this);
+        BiometricPrompt biometricPrompt = new BiometricPrompt(SignInActivity.this, executor, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                Toast.makeText(getApplicationContext(), "Login succeed ", Toast.LENGTH_SHORT).show();//toast if login succeed
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+            }
+        });
+        return biometricPrompt;
     }
 }
