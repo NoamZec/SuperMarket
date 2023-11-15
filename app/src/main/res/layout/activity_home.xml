@@ -6,15 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-    <ImageButton
-        android:id="@+id/imgUser"
-        android:layout_width="105dp"
-        android:layout_height="109dp"
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="193dp"
+        android:layout_height="72dp"
+        android:fontFamily="@font/germania_one"
+        android:text="WELCOME TO ZECH'S MARKET"
+        android:textAlignment="center"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.009"
+        app:layout_constraintHorizontal_bias="0.422"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.009"
-        app:srcCompat="@drawable/userPic" />
+        app:layout_constraintVertical_bias="0.053" />
 </androidx.constraintlayout.widget.ConstraintLayout>

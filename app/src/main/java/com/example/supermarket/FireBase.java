@@ -2,6 +2,7 @@ package com.example.supermarket;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Patterns;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,7 +41,10 @@ public class FireBase {//constructor
     }
     public void register(String email, String password) {
         if(!email.isEmpty() && !password.isEmpty()) {
-
+            if(password.length() < 6){
+                Toast.makeText(context, "password needs to be 6 chars at least", Toast.LENGTH_SHORT).show();
+                return;
+            }
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {//create the register site
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {//move to Home

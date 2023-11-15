@@ -31,6 +31,8 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 fb.register(email.getText().toString(), password.getText().toString());
+//                Intent i  = new Intent(RegisterActivity.this , HomeActivity.class);
+//                startActivity(i);
             }
         });
         login.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
     }
 
 }

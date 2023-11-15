@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.concurrent.Executor;
 
-public class SignInActivity<MainActivity> extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
 
     private EditText password,email;
     private Button register2;
