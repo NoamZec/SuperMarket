@@ -72,6 +72,8 @@ public class SignInActivity extends AppCompatActivity {
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
                 Toast.makeText(getApplicationContext(), "Login succeed ", Toast.LENGTH_SHORT).show();//toast if login succeed
+                Intent i = new Intent(SignInActivity.this,HomeActivity.class);
+                startActivity(i);
             }
 
             @Override

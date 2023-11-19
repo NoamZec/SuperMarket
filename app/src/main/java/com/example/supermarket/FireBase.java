@@ -41,6 +41,10 @@ public class FireBase {//constructor
     }
     public void register(String email, String password) {
         if(!email.isEmpty() && !password.isEmpty()) {
+             if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                Toast.makeText(context, "E-mail is not valid ", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if(password.length() < 6){
                 Toast.makeText(context, "password needs to be 6 chars at least", Toast.LENGTH_SHORT).show();
                 return;

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/alcohol"
+        android:icon="@drawable/alchohol"
+        android:title="Alcohol" />
+    <item
+        android:id="@+id/fish"
+        android:icon="@drawable/fish"
+        android:title="Fish" />
+    <item
+        android:id="@+id/clean"
+        android:icon="@drawable/clean"
+        android:title="Cleaning" />
+    <item
+        android:id="@+id/vegetables"
+        android:icon="@drawable/vegetables"
+        android:title="Vegetables" />
+    <item
+        android:id="@+id/carbohydrates"
+        android:icon="@drawable/carbohydrates"
+        android:title="Carbohydrates" />
+</menu>

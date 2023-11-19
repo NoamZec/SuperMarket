@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 public class HomeActivity extends AppCompatActivity {
 
     TextView welcome;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,5 +25,9 @@ public class HomeActivity extends AppCompatActivity {
         scl.setDuration(2000);
         scl.setRepeatCount(2);
         scl.setRepeatMode(Animation.REVERSE);  welcome.startAnimation(scl);
+    }
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
     }
 }
