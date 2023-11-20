@@ -18,7 +18,7 @@ import java.util.concurrent.Executor;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private EditText password,email;
+    private EditText password,email; //
     private Button register2;
     private FireBase fb;
     private  Button login;
