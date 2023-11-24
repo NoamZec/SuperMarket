@@ -22,4 +22,11 @@
         android:name="com.example.supermarket.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/alcohol"
+        android:name="com.example.supermarket.ui.alcohol.AlcoholFragment"
+        android:label="Alcohol"
+       tools:layout="@layout/fragment_slideshow" />
+
 </navigation>
