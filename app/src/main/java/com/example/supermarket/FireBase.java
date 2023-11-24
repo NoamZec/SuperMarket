@@ -39,6 +39,7 @@ public class FireBase {//constructor
             }
         });
     }
+
     public void register(String email, String password) {
         if(!email.isEmpty() && !password.isEmpty()) {
              if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
