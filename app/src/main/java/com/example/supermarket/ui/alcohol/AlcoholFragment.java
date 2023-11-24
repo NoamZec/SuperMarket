@@ -14,11 +14,14 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.supermarket.R;
+import com.example.supermarket.databinding.FragmentAlcoholBinding;
 
 public class AlcoholFragment extends Fragment {
-
-
     private AlcoholViewModel mViewModel;
+    private FragmentAlcoholBinding binding;
+    String alcohol[] = {"Vodka","whiskey"};
+    int[]img = {R.drawable.vodka,R.drawable.viski};
+    private ListView list;
 
     public static AlcoholFragment newInstance() {
         return new AlcoholFragment();
@@ -27,14 +30,16 @@ public class AlcoholFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
+        binding = FragmentAlcoholBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+        root.findViewById(R.id.list);
         return inflater.inflate(R.layout.fragment_alcohol, container, false);
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(AlcoholViewModel.class);
         // TODO: Use the ViewModel
     }
-
 }
