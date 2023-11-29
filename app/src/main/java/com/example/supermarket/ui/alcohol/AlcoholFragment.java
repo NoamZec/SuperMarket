@@ -19,8 +19,6 @@ import com.example.supermarket.databinding.FragmentAlcoholBinding;
 public class AlcoholFragment extends Fragment {
     private AlcoholViewModel mViewModel;
     private FragmentAlcoholBinding binding;
-    String alcohol[] = {"Vodka","whiskey"};
-    int[]img = {R.drawable.vodka,R.drawable.viski};
     private ListView list;
 
     public static AlcoholFragment newInstance() {

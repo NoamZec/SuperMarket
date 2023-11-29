@@ -36,5 +36,9 @@
             android:id="@+id/shop"
             android:icon="@drawable/shopping"
             android:title="My Shopping" />
+        <item
+            android:id="@+id/admin"
+            android:icon="@drawable/shopping"
+            android:title="Admin" />
     </group>
 </menu>
