@@ -29,10 +29,8 @@ public class RegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.password8);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) {//turn the register function in FireBase page
                 fb.register(email.getText().toString(), password.getText().toString());
-//                Intent i  = new Intent(RegisterActivity.this , HomeActivity.class);
-//                startActivity(i);
             }
         });
         login.setOnClickListener(new View.OnClickListener() {

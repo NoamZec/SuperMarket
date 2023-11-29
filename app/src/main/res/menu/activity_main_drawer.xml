@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/home"
+            android:title="Home" />
+        <item
+            android:id="@+id/alcohol"
+            android:icon="@drawable/alchohol"
+            android:title="Alcohol" />
+        <item
+            android:id="@+id/clean"
+            android:icon="@drawable/clean"
+            android:title="Clean" />
+        <item
+            android:id="@+id/snacks"
+            android:icon="@drawable/snacks"
+            android:title="Snacks" />
+        <item
+            android:id="@+id/fish"
+            android:icon="@drawable/fish"
+            android:title="Fish" />
+        <item
+            android:id="@+id/carbohydrates"
+            android:icon="@drawable/carbohydrates"
+            android:title="Carbohydrates" />
+        <item
+            android:id="@+id/vegetables"
+            android:icon="@drawable/vegetables"
+            android:title="Vegetables" />
+        <item
+            android:id="@+id/shop"
+            android:icon="@drawable/shopping"
+            android:title="My Shopping" />
+    </group>
+</menu>
