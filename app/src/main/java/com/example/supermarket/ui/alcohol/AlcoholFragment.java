@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.example.supermarket.ListAdapter;
 import com.example.supermarket.R;
 import com.example.supermarket.databinding.FragmentAlcoholBinding;
 
@@ -20,6 +21,7 @@ public class AlcoholFragment extends Fragment {
     private AlcoholViewModel mViewModel;
     private FragmentAlcoholBinding binding;
     private ListView list;
+    private ListAdapter adapter;
 
     public static AlcoholFragment newInstance() {
         return new AlcoholFragment();

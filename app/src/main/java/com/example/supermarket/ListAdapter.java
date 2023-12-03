@@ -22,7 +22,6 @@ public class ListAdapter extends ArrayAdapter {
         this.maintitle=maintitle;
         this.subtitle=subtitle;
         this.imgid=imgid;
-
     }
 
     public View getView(int position, View view, ViewGroup parent) {
@@ -36,8 +35,5 @@ public class ListAdapter extends ArrayAdapter {
         titleText.setText(maintitle[position]);
         imageView.setImageResource(imgid[position]);
         subtitleText.setText(subtitle[position]);
-
         return rowView;
-
-    };
-}
+    };}

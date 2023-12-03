@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Admin">
+
+    <ImageButton
+        android:id="@+id/camera"
+        android:layout_width="261dp"
+        android:layout_height="135dp"
+        android:src="@drawable/ic_menu_camera" />
+
+    <ImageButton
+        android:id="@+id/edit"
+        android:layout_width="277dp"
+        android:layout_height="126dp"
+        android:src="@android:drawable/ic_menu_edit" />
+
+    <ImageButton
+        android:id="@+id/eye"
+        android:layout_width="248dp"
+        android:layout_height="272dp"
+        android:src="@drawable/baseline_remove_red_eye_24" />
+
+
+</LinearLayout>
