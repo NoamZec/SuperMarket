@@ -1,9 +1,6 @@
 package com.example.supermarket;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
@@ -14,7 +11,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -63,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {//create the menu in Home page
         firebaseAuth = FirebaseAuth.getInstance();
 
-        if (firebaseAuth.getCurrentUser().getUid().equals("iK2PdDbiYJZQ3ANeKTpVtER1jFm2")) {
+        if (firebaseAuth.getCurrentUser().getUid().equals("PlCJOPnuDLh9lN8RjbCQTxjc7GX2")) {
             isAdmin = true;
         }
 

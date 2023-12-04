@@ -1,8 +1,7 @@
-package com.example.supermarket.ui;
+package com.example.supermarket.ui.admin;
 
 import static android.app.Activity.RESULT_CANCELED;
 
-import androidx.biometric.BiometricPrompt;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,10 +23,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.supermarket.R;
+import com.example.supermarket.databinding.FragmentAdminBinding;
 
 public class Admin extends Fragment {
-
     private ImageView img;
+    private FragmentAdminBinding binding;
     private static final int RESULT_OK = 1;
     private AdminViewModel mViewModel;
     public static Admin newInstance() {
@@ -37,6 +37,8 @@ public class Admin extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        binding =  FragmentAdminBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
         return inflater.inflate(R.layout.fragment_admin, container, false);
     }
     @Override

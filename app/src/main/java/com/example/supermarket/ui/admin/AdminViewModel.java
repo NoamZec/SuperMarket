@@ -1,4 +1,4 @@
-package com.example.supermarket.ui;
+package com.example.supermarket.ui.admin;
 
 import androidx.lifecycle.ViewModel;
 
