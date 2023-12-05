@@ -19,6 +19,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -30,15 +31,25 @@ public class Admin extends Fragment {
     private FragmentAdminBinding binding;
     private static final int RESULT_OK = 1;
     private AdminViewModel mViewModel;
+    private ImageButton camera;
+    /*
     public static Admin newInstance() {
         return new Admin();
     }
+     */
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding =  FragmentAdminBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        camera = root.findViewById(R.id.camera);
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCamera();
+            }
+        });
         return inflater.inflate(R.layout.fragment_admin, container, false);
     }
     @Override

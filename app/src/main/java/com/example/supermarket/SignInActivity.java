@@ -45,12 +45,6 @@ public class SignInActivity extends AppCompatActivity {
             BiometricPrompt biometricPrompt1 = AfterFingerPrint();
             biometricPrompt1.authenticate(promptInfo);
         });
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fb.signIn(email.getText().toString(), password.getText().toString());
-            }
-        });
         register2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
