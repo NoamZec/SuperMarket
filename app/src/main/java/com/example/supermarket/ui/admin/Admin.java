@@ -32,12 +32,9 @@ public class Admin extends Fragment {
     private static final int RESULT_OK = 1;
     private AdminViewModel mViewModel;
     private ImageButton camera;
-    /*
     public static Admin newInstance() {
         return new Admin();
     }
-     */
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -58,7 +55,7 @@ public class Admin extends Fragment {
         mViewModel = new ViewModelProvider(this).get(AdminViewModel.class);
         // TODO: Use the ViewModel
     }
-    private void openCamera() {//function that open the camera
+    private void openCamera() {//function that opens the camera
         if(askForCameraPermission()) {
             Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(camera, 1);

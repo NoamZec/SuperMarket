@@ -34,6 +34,12 @@ public class SignInActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password4);
         fingerPrint = findViewById(R.id.fingerPrint);
+        login.setOnClickListener(new View.OnClickListener() {//login with fireBase
+            @Override
+            public void onClick(View view) {
+                fb.signIn(email.getText().toString(), password.getText().toString());
+            }
+        });
 
         fingerPrint.setOnClickListener(v -> {//start the finger print
             BiometricPrompt.PromptInfo promptInfo =
