@@ -26,28 +26,28 @@ import android.widget.Toast;
 import com.example.supermarket.R;
 import com.example.supermarket.databinding.FragmentAdminBinding;
 
+import java.time.Duration;
+
 public class Admin extends Fragment {
     private ImageView img;
     private FragmentAdminBinding binding;
     private static final int RESULT_OK = 1;
     private AdminViewModel mViewModel;
-    private ImageButton camera;
+    private ImageButton camera_admin;
     public static Admin newInstance() {
         return new Admin();
     }
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding =  FragmentAdminBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-        camera = root.findViewById(R.id.camera);
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openCamera();
-            }
+        View root = inflater.inflate(R.layout.fragment_admin, container, false);
+        camera_admin = root.findViewById(R.id.camera_admin);
+        camera_admin.setOnClickListener(view -> {//open the camera when you click
+            Toast.makeText(getActivity(), "This is my Toast message!",Toast.LENGTH_LONG).show();
+            openCamera();
         });
-        return inflater.inflate(R.layout.fragment_admin, container, false);
+
+        return root;
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -55,11 +55,13 @@ public class Admin extends Fragment {
         mViewModel = new ViewModelProvider(this).get(AdminViewModel.class);
         // TODO: Use the ViewModel
     }
-    private void openCamera() {//function that opens the camera
-        if(askForCameraPermission()) {
-            Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(camera, 1);
+      private void openCamera() {//function that opens the camera
+        if (askForCameraPermission()) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivity(intent);
         }
+
+
     }
 
     private boolean askForCameraPermission() {//ask for the camera's permission
@@ -80,4 +82,5 @@ public class Admin extends Fragment {
             }
         }
     }
+
 }
