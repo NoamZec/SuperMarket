@@ -67,7 +67,6 @@ public class SignInActivity extends AppCompatActivity {
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
             }
-
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
@@ -75,7 +74,6 @@ public class SignInActivity extends AppCompatActivity {
                 Intent i = new Intent(SignInActivity.this,HomeActivity.class);
                 startActivity(i);
             }
-
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();

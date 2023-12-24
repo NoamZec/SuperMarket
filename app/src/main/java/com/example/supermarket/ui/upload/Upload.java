@@ -1,4 +1,4 @@
-package com.example.supermarket.ui.admin;
+package com.example.supermarket.ui.upload;
 
 import static android.app.Activity.RESULT_CANCELED;
 
@@ -29,20 +29,22 @@ import android.widget.Toast;
 
 import com.example.supermarket.R;
 import com.example.supermarket.databinding.FragmentAdminBinding;
+import com.example.supermarket.ui.admin.AdminViewModel;
 
 import java.io.ByteArrayOutputStream;
-import java.time.Duration;
 
-public class Admin extends Fragment {
+public class Upload extends Fragment {
+
     private FragmentAdminBinding binding;
     private static final int RESULT_OK = 1;
-    private AdminViewModel mViewModel;
     private ImageButton camera_admin;
     private ActivityResultLauncher<Intent> cameraLauncher;
+    private UploadViewModel mViewModel;
 
-    public static Admin newInstance() {
-        return new Admin();
+    public static Upload newInstance() {
+        return new Upload();
     }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -73,11 +75,17 @@ public class Admin extends Fragment {
         camera_admin.setOnClickListener(view -> {//open the camera when you click
             openCamera();
         });
-
         return root;
     }
 
-      private void openCamera() {//function that opens the camera
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(UploadViewModel.class);
+        // TODO: Use the ViewModel
+    }
+
+    private void openCamera() {//function that opens the camera
         if (askForCameraPermission()) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 

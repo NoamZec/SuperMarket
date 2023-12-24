@@ -38,7 +38,11 @@
             android:title="My Shopping" />
         <item
             android:id="@+id/admin"
-            android:icon="@drawable/shopping"
+            android:icon="@drawable/admin"
             android:title="Admin" />
+        <item
+            android:id="@+id/upload"
+            android:icon="@drawable/upload"
+            android:title="Upload" />
     </group>
 </menu>
