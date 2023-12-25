@@ -39,6 +39,7 @@ public class Upload extends Fragment {
     private static final int RESULT_OK = 1;
     private ImageButton camera_admin;
     private ActivityResultLauncher<Intent> cameraLauncher;
+    private ImageView img;
     private UploadViewModel mViewModel;
 
     public static Upload newInstance() {
@@ -50,31 +51,31 @@ public class Upload extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_admin, container, false);
 
-        cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult o) {
-                if (o.getResultCode() == getActivity().RESULT_OK) {
-                    Intent data = o.getData();
-                    if (data != null) {
-                        Bundle extras = data.getExtras();
-                        if (extras != null) {
-                            Bitmap imageBitmap = (Bitmap) extras.get("data");
-                            ImageView img = root.findViewById(R.id.eye);
-                            img.setVisibility(View.VISIBLE);
-                            img.setImageBitmap(imageBitmap);
-                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                            byte[] bytes = stream.toByteArray();
-                        }
-                    }
-                }
-            }
-        });
-
-        camera_admin = root.findViewById(R.id.camera_admin);
-        camera_admin.setOnClickListener(view -> {//open the camera when you click
-            openCamera();
-        });
+//        cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+//            @Override
+//            public void onActivityResult(ActivityResult o) {
+//                if (o.getResultCode() == getActivity().RESULT_OK) {
+//                    Intent data = o.getData();
+//                    if (data != null) {
+//                        Bundle extras = data.getExtras();
+//                        if (extras != null) {
+//                            Bitmap imageBitmap = (Bitmap) extras.get("data");
+//                            img = root.findViewById(R.id.eye);
+//                            img.setVisibility(View.VISIBLE);
+//                            img.setImageBitmap(imageBitmap);
+//                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//                            byte[] bytes = stream.toByteArray();
+//                        }
+//                    }
+//                }
+//            }
+//        });
+//
+//        camera_admin = root.findViewById(R.id.camera_admin);
+//        camera_admin.setOnClickListener(view -> {//open the camera when you click
+//            openCamera();
+//        });
         return root;
     }
 

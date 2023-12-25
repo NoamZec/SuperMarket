@@ -8,6 +8,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -23,12 +25,14 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.supermarket.R;
 import com.example.supermarket.databinding.FragmentAdminBinding;
+import com.example.supermarket.ui.upload.Upload;
 
 import java.io.ByteArrayOutputStream;
 import java.time.Duration;
@@ -37,6 +41,8 @@ public class Admin extends Fragment {
     private FragmentAdminBinding binding;
     private static final int RESULT_OK = 1;
     private AdminViewModel mViewModel;
+    private Button btn;
+    private ImageView img;
     private ImageButton camera_admin;
     private ActivityResultLauncher<Intent> cameraLauncher;
 
@@ -47,30 +53,35 @@ public class Admin extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_admin, container, false);
+        btn = root.findViewById(R.id.btn);
+
 
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult o) {
-                if (o.getResultCode() == getActivity().RESULT_OK) {
+                // TODO: go to upload fragment
+               if (o.getResultCode() == getActivity().RESULT_OK) {
                     Intent data = o.getData();
                     if (data != null) {
                         Bundle extras = data.getExtras();
                         if (extras != null) {
                             Bitmap imageBitmap = (Bitmap) extras.get("data");
-                            ImageView img = root.findViewById(R.id.eye);
+                            img = root.findViewById(R.id.eye);
                             img.setVisibility(View.VISIBLE);
                             img.setImageBitmap(imageBitmap);
-                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                           ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                           imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                             byte[] bytes = stream.toByteArray();
                         }
-                    }
+                   }
                 }
+
             }
         });
 
         camera_admin = root.findViewById(R.id.camera_admin);
         camera_admin.setOnClickListener(view -> {//open the camera when you click
+
             openCamera();
         });
 
@@ -105,5 +116,6 @@ public class Admin extends Fragment {
             }
         }
     }
+
 
 }
