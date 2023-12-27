@@ -37,6 +37,8 @@ import com.example.supermarket.ui.upload.Upload;
 import java.io.ByteArrayOutputStream;
 import java.time.Duration;
 
+import io.grpc.Context;
+
 public class Admin extends Fragment {
     private FragmentAdminBinding binding;
     private static final int RESULT_OK = 1;
@@ -54,12 +56,16 @@ public class Admin extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_admin, container, false);
         btn = root.findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
 
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult o) {
-                // TODO: go to upload fragment
                if (o.getResultCode() == getActivity().RESULT_OK) {
                     Intent data = o.getData();
                     if (data != null) {
