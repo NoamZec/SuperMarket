@@ -14,4 +14,14 @@
 
     <string name="asd">asd</string>
     <string name="title_activity_home">HomeActivity</string>
+
+    <string name="dropDownMenu">Drop Down Menu</string>
+    <string-array name="categories">
+        <item>Alcohol</item>
+        <item>Clean</item>
+        <item>Snacks</item>
+        <item>Fish</item>
+        <item>Carbohydrates</item>
+        <item>Vegetables</item>
+    </string-array>
 </resources>

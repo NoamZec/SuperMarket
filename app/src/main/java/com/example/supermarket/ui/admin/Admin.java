@@ -15,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.icu.text.CaseMap;
+import android.icu.util.ULocale;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,17 +27,25 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.supermarket.FireBase;
+import com.example.supermarket.ProductSec;
 import com.example.supermarket.R;
 import com.example.supermarket.databinding.FragmentAdminBinding;
 import com.example.supermarket.ui.upload.Upload;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.ByteArrayOutputStream;
 import java.time.Duration;
+import java.util.Locale;
 
 import io.grpc.Context;
 
@@ -43,10 +53,13 @@ public class Admin extends Fragment {
     private FragmentAdminBinding binding;
     private static final int RESULT_OK = 1;
     private AdminViewModel mViewModel;
+    private EditText title, subtitle, price;
     private Button btn;
     private ImageView img;
     private ImageButton camera_admin;
+    private  Bitmap imageBitmap;
     private ActivityResultLauncher<Intent> cameraLauncher;
+    private Spinner spinner;
 
     public static Admin newInstance() {
         return new Admin();
@@ -56,10 +69,23 @@ public class Admin extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_admin, container, false);
         btn = root.findViewById(R.id.btn);
+        title = root.findViewById(R.id.editText);
+        spinner = root.findViewById(R.id.spinner);
+
+        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.categories, android.R.layout.simple_spinner_item);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+        spinner.setAdapter(arrayAdapter);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (imageBitmap != null) {
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                    ProductSec productSec = new ProductSec(byteArrayOutputStream.toByteArray(), title.getText().toString(),subtitle.getText().toString(), spinner.getSelectedItem().toString(),Double.valueOf(price.getText().toString()));
+                } else {
+                    Toast.makeText(getActivity(), "You need to take a picture first", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -71,7 +97,7 @@ public class Admin extends Fragment {
                     if (data != null) {
                         Bundle extras = data.getExtras();
                         if (extras != null) {
-                            Bitmap imageBitmap = (Bitmap) extras.get("data");
+                            imageBitmap = (Bitmap) extras.get("data");
                             img = root.findViewById(R.id.eye);
                             img.setVisibility(View.VISIBLE);
                             img.setImageBitmap(imageBitmap);
