@@ -5,24 +5,14 @@ import android.media.Image;
 import android.widget.ImageButton;
 
 public class ProductSec {
-    private byte[] ImageBitmap;
     private String title, subtitle, category;
     private double price;
 
-    public ProductSec(byte[] imageBitmap, String title, String subtitle, String category, double price) {
-        ImageBitmap = imageBitmap;
+    public ProductSec(String title, String subtitle, String category, double price) {
         this.title = title;
         this.subtitle = subtitle;
         this.category = category;
         this.price = price;
-    }
-
-    public byte[] getImageBitmap() {
-        return ImageBitmap;
-    }
-
-    public void setImageBitmap(byte[] imageBitmap) {
-        ImageBitmap = imageBitmap;
     }
 
     public String getTitle() {

@@ -12,6 +12,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -24,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,18 +43,23 @@ import com.example.supermarket.ProductSec;
 import com.example.supermarket.R;
 import com.example.supermarket.databinding.FragmentAdminBinding;
 import com.example.supermarket.ui.upload.Upload;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.time.Duration;
 import java.util.Locale;
 
-import io.grpc.Context;
-
 public class Admin extends Fragment {
     private FragmentAdminBinding binding;
     private static final int RESULT_OK = 1;
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private AdminViewModel mViewModel;
     private EditText title, subtitle, price;
     private Button btn;
@@ -60,6 +68,7 @@ public class Admin extends Fragment {
     private  Bitmap imageBitmap;
     private ActivityResultLauncher<Intent> cameraLauncher;
     private Spinner spinner;
+    private FirebaseStorage storage;
 
     public static Admin newInstance() {
         return new Admin();
@@ -69,8 +78,12 @@ public class Admin extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_admin, container, false);
         btn = root.findViewById(R.id.btn);
-        title = root.findViewById(R.id.editText);
+        title = root.findViewById(R.id.title);
+        subtitle = root.findViewById(R.id.editText);
+        price = root.findViewById(R.id.price);
         spinner = root.findViewById(R.id.spinner);
+
+        storage = FirebaseStorage.getInstance();
 
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.categories, android.R.layout.simple_spinner_item);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -82,7 +95,37 @@ public class Admin extends Fragment {
                 if (imageBitmap != null) {
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                     imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                    ProductSec productSec = new ProductSec(byteArrayOutputStream.toByteArray(), title.getText().toString(),subtitle.getText().toString(), spinner.getSelectedItem().toString(),Double.valueOf(price.getText().toString()));
+                    ProductSec productSec = new ProductSec(title.getText().toString(),subtitle.getText().toString(), spinner.getSelectedItem().toString(),Double.valueOf(price.getText().toString()));
+                    byte[] data = byteArrayOutputStream.toByteArray();
+                    // [START upload_create_reference]
+                    // Create a storage reference from our app
+                    StorageReference storageRef = storage.getReference();
+
+                    // Create a reference to "mountains.jpg"
+                    StorageReference productRef = storageRef.child("images/" + title.getText() + ".jpg");
+
+                    UploadTask uploadTask = productRef.putBytes(data);
+                    databaseReference.child("ProductSec").child(productSec.getTitle()).setValue(productSec).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        //there is a problem with this line...
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            Log.d("SUCCESS", "Image Uploaded");
+                                        }
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.e("ERROR", e.getMessage());
+                                    }
+                                });
+                            }
+                        }
+                    });
                 } else {
                     Toast.makeText(getActivity(), "You need to take a picture first", Toast.LENGTH_SHORT).show();
                 }

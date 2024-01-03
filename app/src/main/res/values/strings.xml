@@ -17,6 +17,7 @@
 
     <string name="dropDownMenu">Drop Down Menu</string>
     <string-array name="categories">
+        <item>Home</item>
         <item>Alcohol</item>
         <item>Clean</item>
         <item>Snacks</item>
