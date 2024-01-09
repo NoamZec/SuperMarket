@@ -13,6 +13,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+
 public class FireBase {//constructor
     private final FirebaseAuth auth;
     private Context context; // toast, move from one activity to another
@@ -67,6 +69,19 @@ public class FireBase {//constructor
         else{
             Toast.makeText(context, "One of the fields is empty", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void getData(String category, ArrayList<ProductSec> products) {//get the Data
+        ArrayList<byte[]> images = new ArrayList<>();
+        for(int i = 0;i < products.size();i++){
+            if(products.get(i).getCategory() == category){
+                //TODO: PRODACT
+            }
+        }
+    }
+    //TODO: know what Lambada is
+    public void getPic(){
+
     }
     public FirebaseAuth getAuth(){return  auth;}
 }

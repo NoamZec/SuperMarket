@@ -25,4 +25,18 @@
         <item>Carbohydrates</item>
         <item>Vegetables</item>
     </string-array>
+    <string name="heading_one">Easy Payment</string>
+    <string name="heading_two">Quality In The Best Level</string>
+    <string name="heading_three">Good Treatment</string>
+
+    <string name="desc_one">This App is the official App of the Zech SuperMarket we will do everything in our power to make your costume feeling great</string>
+    <string name="desc_two">Our goal is for you guys to have fun in it and we will do it</string>
+    <string name="desc_three">We are here for your time, To save you time in the long Queue</string>
+    <string name="title_activity_about_us2">AboutUs_2</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
 </resources>

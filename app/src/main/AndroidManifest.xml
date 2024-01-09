@@ -5,7 +5,8 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-    <uses-permission android:name="android.permission.CAMERA"> </uses-permission>
+
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +18,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat"
         tools:targetApi="31">
+        <activity
+            android:name=".AboutUs_2"
+            android:exported="false"
+            android:label="@string/title_activity_about_us2"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name=".AboutUs"
+            android:exported="false" />
         <activity
             android:name=".AlcoholActivity"
             android:exported="false" />
