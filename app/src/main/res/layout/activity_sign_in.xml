@@ -11,9 +11,9 @@
         android:layout_width="219dp"
         android:layout_height="176dp"
         android:background="@drawable/cover"
-        tools:layout_editor_absoluteX="192dp"
-        tools:layout_editor_absoluteY="7dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="176dp"
+        tools:layout_editor_absoluteY="6dp" />
 
     <TextView
         android:id="@+id/SignIn"

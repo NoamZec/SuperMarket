@@ -28,12 +28,11 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityHomeBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_home);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        setSupportActionBar(binding.appBarHome.toolbar);
+        setSupportActionBar(findViewById(R.id.toolbar));
 
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
             @Override
