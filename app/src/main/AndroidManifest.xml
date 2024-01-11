@@ -19,16 +19,14 @@
         android:theme="@style/Theme.AppCompat"
         tools:targetApi="31">
         <activity
-            android:name=".AboutUs_2"
-            android:exported="false"
-            android:label="@string/title_activity_about_us2"
-            android:theme="@style/Theme.AppCompat" />
-        <activity
-            android:name=".AboutUs"
-            android:exported="false" />
-        <activity
-            android:name=".AlcoholActivity"
-            android:exported="false" />
+            android:name=".InfoAboutUs"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".HomeActivity"
             android:exported="false"
