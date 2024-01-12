@@ -20,4 +20,8 @@
     </style>
 
     <style name="Theme.AppCompat" parent="Base.Theme.AppCompat" />
+
+    <style name="Theme.SuperMarket.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.SuperMarket.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

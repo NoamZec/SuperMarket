@@ -28,11 +28,12 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_home);
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        setSupportActionBar(findViewById(R.id.toolbar));
+        setSupportActionBar(binding.appBarHome.toolbar);
 
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +42,6 @@ public class HomeActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -62,7 +62,6 @@ public class HomeActivity extends AppCompatActivity {
         if (firebaseAuth.getCurrentUser().getUid().equals("PlCJOPnuDLh9lN8RjbCQTxjc7GX2")) {
             isAdmin = true;
         }
-
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
         if (!isAdmin) {
