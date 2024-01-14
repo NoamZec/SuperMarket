@@ -38,11 +38,7 @@
             android:title="My Shopping" />
         <item
             android:id="@+id/admin"
-            android:icon="@drawable/admin"
+            android:icon="@drawable/admin2"
             android:title="Admin" />
-        <item
-            android:id="@+id/upload"
-            android:icon="@drawable/upload"
-            android:title="Upload" />
     </group>
 </menu>
