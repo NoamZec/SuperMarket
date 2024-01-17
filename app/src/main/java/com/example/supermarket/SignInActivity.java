@@ -29,7 +29,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         register2 = findViewById(R.id.register2);
-        fb = new FireBase(FirebaseAuth.getInstance(), this);
+        fb = new FireBase(this);
         login = findViewById(R.id.LogIn2);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password4);

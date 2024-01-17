@@ -22,7 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regiser);
-        fb = new FireBase(FirebaseAuth.getInstance(), this);
+        fb = new FireBase(this);
         register = findViewById(R.id.LogIn2);
         login = findViewById(R.id.login);
         email = findViewById(R.id.email13);

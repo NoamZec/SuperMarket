@@ -46,33 +46,39 @@ import com.example.supermarket.ui.upload.Upload;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.CancellableTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+
 import java.io.ByteArrayOutputStream;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class Admin extends Fragment {
     private FragmentAdminBinding binding;
     private static final int RESULT_OK = 1;
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private AdminViewModel mViewModel;
     private EditText title, subtitle, price;
     private Button btn;
     private ImageView img;
     private ImageButton camera_admin;
-    private  Bitmap imageBitmap;
+    private Bitmap imageBitmap;
     private ActivityResultLauncher<Intent> cameraLauncher;
     private Spinner spinner;
-    private FirebaseStorage storage;
+    private FireBase firebase;
 
     public static Admin newInstance() {
         return new Admin();
     }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -83,7 +89,8 @@ public class Admin extends Fragment {
         price = root.findViewById(R.id.price);
         spinner = root.findViewById(R.id.spinner);
 
-        storage = FirebaseStorage.getInstance();
+        firebase = new FireBase(getContext());
+
 
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.categories, android.R.layout.simple_spinner_item);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -95,37 +102,12 @@ public class Admin extends Fragment {
                 if (imageBitmap != null) {
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                     imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                    ProductSec productSec = new ProductSec(title.getText().toString(),subtitle.getText().toString(), spinner.getSelectedItem().toString(),Double.valueOf(price.getText().toString()));
+                    ProductSec productSec = new ProductSec(title.getText().toString(), subtitle.getText().toString(), spinner.getSelectedItem().toString(), Double.valueOf(price.getText().toString()));
                     byte[] data = byteArrayOutputStream.toByteArray();
                     // [START upload_create_reference]
                     // Create a storage reference from our app
-                    StorageReference storageRef = storage.getReference();
 
-                    // Create a reference to "mountains.jpg"
-                    StorageReference productRef = storageRef.child("images/" + title.getText() + ".jpg");
-
-                    UploadTask uploadTask = productRef.putBytes(data);
-                    databaseReference.child("ProductSec").child(productSec.getTitle()).setValue(productSec).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        //there is a problem with this line...
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            Log.d("SUCCESS", "Image Uploaded");
-                                        }
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.e("ERROR", e.getMessage());
-                                    }
-                                });
-                            }
-                        }
-                    });
+                    firebase.uploadPic(productSec.getTitle(), productSec, data);
                 } else {
                     Toast.makeText(getActivity(), "You need to take a picture first", Toast.LENGTH_SHORT).show();
                 }
@@ -135,7 +117,7 @@ public class Admin extends Fragment {
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult o) {
-               if (o.getResultCode() == getActivity().RESULT_OK) {
+                if (o.getResultCode() == getActivity().RESULT_OK) {
                     Intent data = o.getData();
                     if (data != null) {
                         Bundle extras = data.getExtras();
@@ -144,11 +126,11 @@ public class Admin extends Fragment {
                             img = root.findViewById(R.id.eye);
                             img.setVisibility(View.VISIBLE);
                             img.setImageBitmap(imageBitmap);
-                           ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                           imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                             byte[] bytes = stream.toByteArray();
                         }
-                   }
+                    }
                 }
 
             }
@@ -163,7 +145,7 @@ public class Admin extends Fragment {
         return root;
     }
 
-      private void openCamera() {//function that opens the camera
+    private void openCamera() {//function that opens the camera
         if (askForCameraPermission()) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -181,6 +163,7 @@ public class Admin extends Fragment {
         }
         return true;
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
@@ -191,6 +174,4 @@ public class Admin extends Fragment {
             }
         }
     }
-
-
 }

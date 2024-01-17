@@ -14,7 +14,8 @@ import android.view.ViewGroup;
 
 public class AlcoholFragment extends Fragment {
 
-    private AlcoholViewModel mViewModel;
+    private AlcoholViewModel2 mViewModel;
+    FireBase fireBase;
 
     public static AlcoholFragment newInstance() {
         return new AlcoholFragment();
@@ -23,13 +24,16 @@ public class AlcoholFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_alcohol2, container, false);
+        fireBase.addPostEventListener("Alcohol", ProductSec->{
+            //TODO: the array list of the products in alcohol fragment
+        });
+        return inflater.inflate(R.layout.fragment_alcohol, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(AlcoholViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(AlcoholViewModel2.class);
         // TODO: Use the ViewModel
     }
 
