@@ -119,7 +119,6 @@ public class FireBase {//constructor
         databaseReference.addValueEventListener(productListener);
         // [END post_value_event_listener]
     }
-
     public void uploadPic(String path, ProductSec productSec, byte[] data) {
         StorageReference storageRef = storage.getReference();
 
