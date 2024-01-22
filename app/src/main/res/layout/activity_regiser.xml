@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AF9D9D"
+    android:background="#DEE1CD"
     tools:context=".RegisterActivity">
 
     <TextView
@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="E-mail"
+        android:background="#8CD58E"
         android:inputType="textEmailAddress"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -42,6 +43,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="password"
+        android:background="#8CD58E"
         android:inputType="textPassword"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,6 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="register"
+        android:background="#8CD58E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.137"
@@ -85,6 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign in"
+        android:background="#8CD58E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.878"

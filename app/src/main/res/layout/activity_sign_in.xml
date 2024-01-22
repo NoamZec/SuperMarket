@@ -4,16 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BF988C"
+    android:background="#CCB6B6"
     tools:context=".SignInActivity">
-
-    <LinearLayout
-        android:layout_width="219dp"
-        android:layout_height="176dp"
-        android:background="@drawable/cover"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="6dp" />
 
     <TextView
         android:id="@+id/SignIn"
@@ -25,10 +17,10 @@
         android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.009"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.093" />
+        app:layout_constraintVertical_bias="0.071" />
 
     <EditText
         android:id="@+id/email"
@@ -36,6 +28,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="E-mail"
+        android:background="#9F88A3"
         android:inputType="textEmailAddress"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,6 +44,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="password"
+        android:background="#8B728F"
         android:inputType="textPassword"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"

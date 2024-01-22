@@ -11,8 +11,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -20,7 +22,8 @@ public class AlcoholFragment extends Fragment {
 
     private AlcoholViewModel2 mViewModel;
     private FireBase fireBase;
-    private LinearLayout linearLayout;
+    private ArrayAdapter arrayAdapter;
+    private ListView list;
     public static AlcoholFragment newInstance() {
         return new AlcoholFragment();
     }
@@ -29,15 +32,25 @@ public class AlcoholFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_alcohol, container, false);
-        linearLayout = root.findViewById(R.id.linearLayout);
-        fireBase.addPostEventListener("Alcohol", value -> {
+        list = root.findViewById(R.id.list);
+
+        ArrayList<ListView> arrayList = new ArrayList<>();
+     /*   fireBase.addPostEventListener("Alcohol", value -> {
             if (value instanceof ArrayList<?>) {//check if the value is kind of arrayList
                 ArrayList<ProductSec> products = (ArrayList<ProductSec>) value;
+                int size = 0;
+                if (products.size() % 3 == 0) {
+                    size = products.size()/3;
+                } else {
+                    size = (products.size() / 3) + 1;
+                }
                 for (int i = 0; i < products.size(); i++) {
-                    //TODO: THINK HOW TO DO 3 LINEARLAYOUT AFTER EVEY
+
                 }
             }
         });
+
+      */
         return inflater.inflate(R.layout.fragment_alcohol, container, false);
     }
 
