@@ -127,7 +127,6 @@ public class FireBase {//constructor
 
         UploadTask uploadTask = productRef.putBytes(data);
         databaseReference.child("ProductSec").child(path).setValue(productSec).addOnCompleteListener(new OnCompleteListener<Void>() {
-            //there is a problem with this line...
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
@@ -147,6 +146,7 @@ public class FireBase {//constructor
                 }
             }
         });
+
     }
 
     public FirebaseAuth getAuth(){return  auth;}

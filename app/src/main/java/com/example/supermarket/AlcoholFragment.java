@@ -33,8 +33,6 @@ public class AlcoholFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_alcohol, container, false);
         list = root.findViewById(R.id.list);
-
-        ArrayList<ListView> arrayList = new ArrayList<>();
      /*   fireBase.addPostEventListener("Alcohol", value -> {
             if (value instanceof ArrayList<?>) {//check if the value is kind of arrayList
                 ArrayList<ProductSec> products = (ArrayList<ProductSec>) value;
@@ -51,6 +49,20 @@ public class AlcoholFragment extends Fragment {
         });
 
       */
+        fireBase.addPostEventListener("Alcohol",value -> {
+            if (value instanceof ArrayList<?>){
+                ArrayList<ProductSec> products = (ArrayList<ProductSec>) value;
+                double[]price = new double[products.size()];
+                byte[]photos = new byte[products.size()];
+                String[]description = new String[products.size()];
+                String[]title = new String[products.size()];
+                for(int i = 0;i < products.size();i++){
+                    price[i]  = products.get(i).getPrice();
+                    //  photos[i]  = products.get(i).;
+                    price[i]  = products.get(i).getPrice();
+                }
+            }
+        });
         return inflater.inflate(R.layout.fragment_alcohol, container, false);
     }
 
