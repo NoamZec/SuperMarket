@@ -33,6 +33,10 @@
             android:icon="@drawable/vegetables"
             android:title="Vegetables" />
         <item
+            android:id="@+id/drinks"
+            android:icon="@drawable/drink"
+            android:title="Drinks" />
+        <item
             android:id="@+id/shop"
             android:icon="@drawable/shopping"
             android:title="My Shopping" />

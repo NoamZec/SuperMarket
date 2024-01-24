@@ -25,7 +25,7 @@ public class MyAdapter extends ArrayAdapter<String> {
     private final ArrayList<byte[]>image;
     private final double[] price;
 
-    public MyAdapter(@NonNull Context context,String[] title,String[]des,ArrayList<byte[]>image,double[]price) {
+    public MyAdapter(@NonNull Context context,String[] title,String[]des,ArrayList<byte[]>image,double[]price) {//constructor of the adapter
         super(context, R.layout.mylist, title);
         this.context = (Activity) context;
         this.title = title;
@@ -33,7 +33,7 @@ public class MyAdapter extends ArrayAdapter<String> {
         this.image = image;
         this.price = price;
     }
-    public View getView(int position, View view, ViewGroup parent){
+    public View getView(int position, View view, ViewGroup parent){//connect the images and make photo to Bitmap
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.mylist, null,true);
         TextView titleText =(TextView) rowView.findViewById(R.id.title);

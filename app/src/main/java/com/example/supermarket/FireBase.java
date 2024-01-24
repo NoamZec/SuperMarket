@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import com.example.supermarket.ui.admin.Listener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,10 +32,12 @@ public class FireBase {//constructor
     private ArrayList<ProductSec> allProducts, products;
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private FirebaseStorage storage;
+    private StorageReference storageRef;
 
     public FireBase(Context context){
         this.auth = FirebaseAuth.getInstance();
         this.context = context;
+        this.storageRef = storage.getReference();
     }
     public void signIn(String email, String password){
         Task<AuthResult> authResultTask = auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -120,8 +123,6 @@ public class FireBase {//constructor
         // [END post_value_event_listener]
     }
     public void uploadPic(String path, ProductSec productSec, byte[] data) {
-        StorageReference storageRef = storage.getReference();
-
         // Create a reference to "mountains.jpg"
         StorageReference productRef = storageRef.child("images/" + productSec.getTitle() + ".jpg");
 
@@ -144,6 +145,24 @@ public class FireBase {//constructor
                         }
                     });
                 }
+            }
+        });
+
+    }
+
+    public void getPicture(ProductSec product, Listener<byte[]> listener) {
+        StorageReference islandRef = storageRef.child("images/" + product.getTitle() + ".jpg");
+
+        final long ONE_MEGABYTE = 1024 * 1024;
+        islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                listener.onListen(bytes);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(context, exception.getMessage().toString(), Toast.LENGTH_SHORT).show();
             }
         });
 

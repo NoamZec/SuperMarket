@@ -53,12 +53,14 @@ public class AlcoholFragment extends Fragment {
             if (value instanceof ArrayList<?>){
                 ArrayList<ProductSec> products = (ArrayList<ProductSec>) value;
                 double[]price = new double[products.size()];
-                byte[]photos = new byte[products.size()];
-                String[]description = new String[products.size()];
-                String[]title = new String[products.size()];
+                ArrayList<byte[]> photos = new ArrayList<>();
+                String[] description = new String[products.size()];
+                String[] title = new String[products.size()];
                 for(int i = 0;i < products.size();i++){
                     price[i]  = products.get(i).getPrice();
-                    //  photos[i]  = products.get(i).;
+                    fireBase.getPicture(products.get(i), bytes -> {
+                        photos.add(bytes);
+                    });
                     price[i]  = products.get(i).getPrice();
                 }
             }
