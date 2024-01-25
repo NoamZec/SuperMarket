@@ -25,7 +25,7 @@ public class MyAdapter extends ArrayAdapter<String> {
     private final ArrayList<byte[]>image;
     private final double[] price;
 
-    public MyAdapter(@NonNull Context context,String[] title,String[]des,ArrayList<byte[]>image,double[]price) {//constructor of the adapter
+    public MyAdapter(@NonNull Context context,String[] title,String[] des,ArrayList<byte[]> image,double[] price) {//constructor of the adapter
         super(context, R.layout.mylist, title);
         this.context = (Activity) context;
         this.title = title;
