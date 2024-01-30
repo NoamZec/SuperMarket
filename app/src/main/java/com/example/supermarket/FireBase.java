@@ -33,6 +33,7 @@ public class FireBase {//constructor
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private FirebaseStorage storage;
     private StorageReference storageRef;
+    private DatabaseReference mDatabase;
 
     public FireBase(Context context){
         this.auth = FirebaseAuth.getInstance();
@@ -86,6 +87,13 @@ public class FireBase {//constructor
         else{
             Toast.makeText(context, "One of the fields is empty", Toast.LENGTH_LONG).show();
         }
+
+    }
+    public void writeNewProduct(String subtitle, String title, String category, double price, String productId){
+        ProductSec productSec = new ProductSec(title,subtitle,category,price);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        // mDatabase.child("ProductSec").child().setValue(productSec);
+        //fix the problem of this line (95)
     }
 
     public void addPostEventListener(String category, Listener listener) {

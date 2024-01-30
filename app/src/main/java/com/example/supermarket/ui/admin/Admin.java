@@ -111,6 +111,7 @@ public class Admin extends Fragment {
                 } else {
                     Toast.makeText(getActivity(), "You need to take a picture first", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 

@@ -7,18 +7,21 @@ import android.widget.ImageButton;
 public class ProductSec {
     private String title, subtitle, category;
     private double price;
+  //  private String productId;
 
     public ProductSec(String title, String subtitle, String category, double price) {
         this.title = title;
         this.subtitle = subtitle;
         this.category = category;
         this.price = price;
+     //   this.productId = productId;
     }
+  // public String getProductId{return productId;}
 
     public String getTitle() {
         return title;
     }
-
+  //  public void SetProductId(String productId){this.productId = productId;}
     public void setTitle(String title) {
         this.title = title;
     }
