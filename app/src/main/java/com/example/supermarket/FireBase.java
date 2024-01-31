@@ -30,7 +30,7 @@ public class FireBase {//constructor
     private final FirebaseAuth auth;
     private Context context; // toast, move from one activity to another
     private ArrayList<ProductSec> allProducts, products;
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private FirebaseStorage storage;
     private StorageReference storageRef;
     private DatabaseReference mDatabase;
@@ -89,11 +89,11 @@ public class FireBase {//constructor
         }
 
     }
-    public void writeNewProduct(String subtitle, String title, String category, double price, String productId){
+
+    public void writeNewProduct(String subtitle, String title, String category, double price, int productId){
         ProductSec productSec = new ProductSec(title,subtitle,category,price);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        // mDatabase.child("ProductSec").child().setValue(productSec);
-        //fix the problem of this line (95)
+         mDatabase.child("ProductSec").child(productId + "").setValue(productSec);
     }
 
     public void addPostEventListener(String category, Listener listener) {
@@ -174,6 +174,23 @@ public class FireBase {//constructor
             }
         });
 
+    }
+    public static void findProductId(int id, Listener<Boolean> listener){
+        databaseReference.child("products").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isSuccessful()){
+                    for(DataSnapshot snapshot : task.getResult().getChildren()){
+                        if(snapshot.child(id + "").exists()){
+                            listener.onListen(true);
+                        }
+                        else {
+                            listener.onListen(false);
+                        }
+                    }
+                }
+            }
+        });
     }
 
     public FirebaseAuth getAuth(){return  auth;}
