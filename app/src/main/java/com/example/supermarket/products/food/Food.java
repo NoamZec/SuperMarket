@@ -8,4 +8,8 @@ public class Food extends ProductSec {
         super(title, subtitle, category, price);
         this.weight = weight;
     }
+    public void setWeight(double weight){
+        this.weight = weight;
+    }
+    public double getWeight(){return this.weight;}
 }

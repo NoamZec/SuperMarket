@@ -24,7 +24,7 @@
         <item>Fish</item>
         <item>Carbohydrates</item>
         <item>Vegetables</item>
-        <iemm>Drinks</iemm>
+        <item>Drinks</item>
     </string-array>
     <string name="heading_one">Easy Payment</string>
     <string name="heading_two">Quality In The Best Level</string>

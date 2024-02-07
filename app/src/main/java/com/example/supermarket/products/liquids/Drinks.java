@@ -8,4 +8,5 @@ public class Drinks extends ProductSec {
         super(title, subtitle, category, price);
         this.liter = liter;
     }
+    public  double getLiter(){return this.liter;}
 }

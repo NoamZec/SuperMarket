@@ -6,4 +6,5 @@ public class Vegetables extends Food {
         super(title, subtitle, category, price, weight);
         this.countryImport = countryImport;
     }
+    public String getCountryImport(){return this.countryImport;}
 }

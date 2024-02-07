@@ -6,4 +6,5 @@ public class Alcohol extends Drinks {
         super(title, subtitle, category, price, liter);
         this.alcoholPercent = alcoholPercent;
     }
+    public int getAlcoholPercent(){return this.alcoholPercent;}
 }

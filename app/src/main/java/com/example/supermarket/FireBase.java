@@ -24,6 +24,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.time.Duration;
 import java.util.ArrayList;
 
 public class FireBase {//constructor
@@ -37,8 +38,10 @@ public class FireBase {//constructor
 
     public FireBase(Context context){
         this.auth = FirebaseAuth.getInstance();
-        this.context = context;
+        this.storage = FirebaseStorage.getInstance();
         this.storageRef = storage.getReference();
+        this.mDatabase = FirebaseDatabase.getInstance().getReference();
+        this.context = context;
     }
     public void signIn(String email, String password){
         Task<AuthResult> authResultTask = auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -90,7 +93,7 @@ public class FireBase {//constructor
 
     }
 
-    public void writeNewProduct(String subtitle, String title, String category, double price, int productId){
+    public void writeNewProduct(String subtitle, String title, String category, double price, int productId){//open the function in somewhere
         ProductSec productSec = new ProductSec(title,subtitle,category,price);
         mDatabase = FirebaseDatabase.getInstance().getReference();
          mDatabase.child("ProductSec").child(productId + "").setValue(productSec);
@@ -156,6 +159,9 @@ public class FireBase {//constructor
             }
         });
 
+    }
+    public void writeNewProduct(ProductSec product) {
+        mDatabase.child("products").child(String.valueOf(product.getProductId())).setValue(product);
     }
 
     public void getPicture(ProductSec product, Listener<byte[]> listener) {
