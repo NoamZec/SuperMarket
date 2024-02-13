@@ -27,20 +27,18 @@ import com.google.firebase.storage.UploadTask;
 import java.time.Duration;
 import java.util.ArrayList;
 
-public class FireBase {//constructor
+public class FireBase {
     private final FirebaseAuth auth;
-    private Context context; // toast, move from one activity to another
+    private Context context;
     private ArrayList<ProductSec> allProducts, products;
     private static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private FirebaseStorage storage;
     private StorageReference storageRef;
-    private DatabaseReference mDatabase;
 
-    public FireBase(Context context){
+    public FireBase(Context context){//constructor
         this.auth = FirebaseAuth.getInstance();
         this.storage = FirebaseStorage.getInstance();
         this.storageRef = storage.getReference();
-        this.mDatabase = FirebaseDatabase.getInstance().getReference();
         this.context = context;
     }
     public void signIn(String email, String password){
@@ -63,7 +61,7 @@ public class FireBase {//constructor
         });
     }
 
-    public void register(String email, String password) {
+    public void register(String email, String password) {//check if valid user registered
         if(!email.isEmpty() && !password.isEmpty()) {
              if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                 Toast.makeText(context, "E-mail is not valid ", Toast.LENGTH_SHORT).show();
@@ -90,13 +88,6 @@ public class FireBase {//constructor
         else{
             Toast.makeText(context, "One of the fields is empty", Toast.LENGTH_LONG).show();
         }
-
-    }
-
-    public void writeNewProduct(String subtitle, String title, String category, double price, int productId){//open the function in somewhere
-        ProductSec productSec = new ProductSec(title,subtitle,category,price);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-         mDatabase.child("ProductSec").child(productId + "").setValue(productSec);
     }
 
     public void addPostEventListener(String category, Listener listener) {
@@ -115,7 +106,7 @@ public class FireBase {//constructor
                     allProducts.add(product);
                 }
 
-                for (ProductSec productSec : allProducts) {
+                for (ProductSec productSec : allProducts) {//if the category is the same as in the product add it in the ArrayList
                     if (productSec.getCategory().equals(category)) {
                         products.add(productSec);
                     }
@@ -158,12 +149,7 @@ public class FireBase {//constructor
                 }
             }
         });
-
     }
-    public void writeNewProduct(ProductSec product) {
-        mDatabase.child("products").child(String.valueOf(product.getProductId())).setValue(product);
-    }
-
     public void getPicture(ProductSec product, Listener<byte[]> listener) {
         StorageReference islandRef = storageRef.child("images/" + product.getTitle() + ".jpg");
 

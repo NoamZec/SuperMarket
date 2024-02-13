@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1037671499111",
-    "project_id": "supermarket-4d88c",
-    "storage_bucket": "supermarket-4d88c.appspot.com"
+    "project_number": "167743520808",
+    "project_id": "supermarket-d6d6c",
+    "storage_bucket": "supermarket-d6d6c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1037671499111:android:164200f6f1316b6ac99bc2",
+        "mobilesdk_app_id": "1:167743520808:android:0e498eaab42f5b2f06751d",
         "android_client_info": {
           "package_name": "com.example.supermarket"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyApaHclk13jsLf2BPJ9Hxf0wVa6bB4Aizs"
+          "current_key": "AIzaSyCEMuUSaQNZqvPhjxQeutH8D0FRCutG2yk"
         }
       ],
       "services": {

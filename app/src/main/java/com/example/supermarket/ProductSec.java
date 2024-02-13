@@ -18,8 +18,6 @@ public class ProductSec {
         this.price = price;
         this.productId = generateId();
     }
-
-
     public String getTitle() {
         return title;
     }
@@ -51,7 +49,6 @@ public class ProductSec {
         this.price = price;
     }
     public  int getProductId(){return productId;}
-
     private boolean foundId = false;
     private int generateId() {
         Random rnd = new Random();

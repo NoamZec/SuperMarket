@@ -59,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {//create the menu in Home page
         firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser().getUid().equals("PlCJOPnuDLh9lN8RjbCQTxjc7GX2")) {
+        if (firebaseAuth.getCurrentUser().getUid().equals("VzmdwNrUAPMsQbk3KztsOlR3Ctr2")) {
             isAdmin = true;
         }
         // Inflate the menu; this adds items to the action bar if it is present.
