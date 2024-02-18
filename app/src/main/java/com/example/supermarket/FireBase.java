@@ -93,12 +93,6 @@ public class FireBase {//constructor
 
     }
 
-    public void writeNewProduct(String subtitle, String title, String category, double price, int productId){//open the function in somewhere
-        ProductSec productSec = new ProductSec(title,subtitle,category,price);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-         mDatabase.child("ProductSec").child(productId + "").setValue(productSec);
-    }
-
     public void addPostEventListener(String category, Listener listener) {
         // [START post_value_event_listener]
         ValueEventListener productListener = new ValueEventListener() {
@@ -159,9 +153,6 @@ public class FireBase {//constructor
             }
         });
 
-    }
-    public void writeNewProduct(ProductSec product) {
-        mDatabase.child("products").child(String.valueOf(product.getProductId())).setValue(product);
     }
 
     public void getPicture(ProductSec product, Listener<byte[]> listener) {

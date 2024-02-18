@@ -58,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {//create the menu in Home page
-        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();//get the firebase class
         if (firebaseAuth.getCurrentUser().getUid().equals("VzmdwNrUAPMsQbk3KztsOlR3Ctr2")) {
             isAdmin = true;
         }
