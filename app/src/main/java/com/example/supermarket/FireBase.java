@@ -156,10 +156,9 @@ public class FireBase {//constructor
     }
 
     public void getPicture(ProductSec product, Listener<byte[]> listener) {
-        StorageReference islandRef = storageRef.child("images/" + product.getTitle() + ".jpg");
 
-        final long ONE_MEGABYTE = 1024 * 1024;
-        islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        final long ONE_MEGABYTE = 5 * (1024 * 1024);
+        storageRef.child("images").child(product.getTitle() + ".jpg").getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
                 listener.onListen(bytes);
@@ -172,6 +171,7 @@ public class FireBase {//constructor
         });
 
     }
+
     public static void findProductId(int id, Listener<Boolean> listener){
         databaseReference.child("products").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override

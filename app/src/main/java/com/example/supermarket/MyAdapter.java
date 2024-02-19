@@ -42,7 +42,7 @@ public class MyAdapter extends ArrayAdapter<String> {
         ImageView img1 = (ImageView) rowView.findViewById(R.id.icon);
         titleText.setText(title[position]);
         Bitmap bitmap = BitmapFactory.decodeByteArray(image.get(position), 0, image.get(position).length);
-        img1.setImageBitmap(bitmap);
+        img1.setImageBitmap(Bitmap.createScaledBitmap(bitmap, img1.getWidth(), img1.getHeight(), false));
         description.setText(des[position]);
         price1.setText(price[position] + "");
         return rowView;
