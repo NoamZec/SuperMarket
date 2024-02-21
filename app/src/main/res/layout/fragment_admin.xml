@@ -16,12 +16,6 @@
         android:src="@drawable/ic_menu_camera" />
 
     <ImageButton
-        android:id="@+id/edit"
-        android:layout_width="277dp"
-        android:layout_height="126dp"
-        android:src="@android:drawable/ic_menu_edit" />
-
-    <ImageButton
         android:id="@+id/eye"
         android:layout_width="181dp"
         android:layout_height="157dp"

@@ -95,37 +95,49 @@ public class FireBase {//constructor
 
     public void addPostEventListener(String category, Listener listener) {
         // [START post_value_event_listener]
-        ValueEventListener productListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-//                ProductSec product = dataSnapshot.getValue(ProductSec.class);
-//                if (product.getCategory().equals(category)) {
+   //     ValueEventListener productListener = new ValueEventListener() {
+       //     @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // Get Post object and use the values to update the UI
+////                ProductSec product = dataSnapshot.getValue(ProductSec.class);
+////                if (product.getCategory().equals(category)) {
+////
+////                }
 //
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                    ProductSec product = snapshot.getValue(ProductSec.class);
+//                    allProducts.add(product);
 //                }
+//
+//                for (ProductSec productSec : allProducts) {
+//                    if (productSec.getCategory().equals(category)) {
+//                        products.add(productSec);
+//                    }
+//                }
+//
+//
+//                listener.onListen(products);
+//            }
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    ProductSec product = snapshot.getValue(ProductSec.class);
-                    allProducts.add(product);
-                }
 
-                for (ProductSec productSec : allProducts) {
-                    if (productSec.getCategory().equals(category)) {
-                        products.add(productSec);
-                    }
-                }
-
-
-                listener.onListen(products);
-            }
-
+//          //  @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                // Getting Post failed, log a message
+//            }
+//        };
+//        databaseReference.addValueEventListener(productListener);
+//        // [END post_value_event_listener]
+        mDatabase.child("Products").child(category).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                }
             }
-        };
-        databaseReference.addValueEventListener(productListener);
-        // [END post_value_event_listener]
+        });
     }
     public void uploadPic(String path, ProductSec productSec, byte[] data) {
         // Create a reference to "mountains.jpg"

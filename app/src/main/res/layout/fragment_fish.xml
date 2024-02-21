@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".fish.FishFragment">
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="411dp"
+        android:layout_height="731dp"
+        android:text="Welcome to fish"
+        android:textColor="@color/black"
+        android:textAlignment="center"/>
+
+</FrameLayout>

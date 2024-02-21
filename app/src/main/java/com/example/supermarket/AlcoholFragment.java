@@ -41,6 +41,7 @@ public class AlcoholFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_alcohol, container, false);
         list = root.findViewById(R.id.list);
+        FireBase fireBase = new FireBase(getContext());
      /*
       fireBase.addPostEventListener("Alcohol", value -> {
             if (value instanceof ArrayList<?>) {//check if the value is kind of arrayList

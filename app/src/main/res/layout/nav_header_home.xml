@@ -18,7 +18,7 @@
         android:layout_height="119dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/shopping" />
+        app:srcCompat="@drawable/image4" />
 
     <TextView
         android:layout_width="match_parent"
