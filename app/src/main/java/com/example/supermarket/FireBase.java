@@ -190,6 +190,7 @@ public class FireBase {//constructor
     public void getPicture(ProductSec product, Listener<byte[]> listener) {
 
         final long ONE_MEGABYTE = 5 * (1024 * 1024);
+        Log.e("ERROR", product.getTitle());
         storageRef.child("images").child(product.getTitle() + ".jpg").getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
