@@ -1,4 +1,4 @@
-package com.example.supermarket.ui.admin;
+package com.example.supermarket;
 
 public interface Listener<T> {
     void onListen(T value);

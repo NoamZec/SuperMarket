@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.supermarket.ui.admin.Listener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -16,15 +15,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.time.Duration;
 import java.util.ArrayList;
 
 public class FireBase {//constructor
@@ -42,6 +38,8 @@ public class FireBase {//constructor
         this.storageRef = storage.getReference();
         this.mDatabase = FirebaseDatabase.getInstance().getReference();
         this.context = context;
+        this.allProducts = new ArrayList<>();
+        this.products = new ArrayList<>();
     }
     public void signIn(String email, String password){
         Task<AuthResult> authResultTask = auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -93,7 +91,7 @@ public class FireBase {//constructor
 
     }
 
-    public void addPostEventListener(String category, Listener listener) {
+    public void getInformation(String category, Listener<ArrayList<ProductSec>> listener) {
         // [START post_value_event_listener]
    //     ValueEventListener productListener = new ValueEventListener() {
        //     @Override
@@ -127,24 +125,46 @@ public class FireBase {//constructor
 //        };
 //        databaseReference.addValueEventListener(productListener);
 //        // [END post_value_event_listener]
-        mDatabase.child("Products").child(category).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child("products").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                }
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                listener.onListen(getProducts(dataSnapshot, category));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("ERROR", e.getMessage());
             }
         });
     }
+
+    private ArrayList<ProductSec> getProducts(DataSnapshot dataSnapshot, String category) {
+        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+            Log.e("ERROR", "1");
+            ProductSec product = snapshot.getValue(ProductSec.class);
+            Log.e("ERROR", "2");
+            allProducts.add(product);
+            Log.e("ERROR", "3");
+        }
+
+        for (ProductSec productSec : allProducts) {
+            Log.e("ERROR", "4");
+            if (productSec.getCategory().equals(category)) {
+                Log.e("ERROR", "5");
+                products.add(productSec);
+                Log.e("ERROR", "6");
+            }
+        }
+
+        return products;
+    }
+
     public void uploadPic(String path, ProductSec productSec, byte[] data) {
         // Create a reference to "mountains.jpg"
         StorageReference productRef = storageRef.child("images/" + productSec.getTitle() + ".jpg");
 
         UploadTask uploadTask = productRef.putBytes(data);
-        databaseReference.child("ProductSec").child(path).setValue(productSec).addOnCompleteListener(new OnCompleteListener<Void>() {
+        databaseReference.child("products").child(path).setValue(productSec).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {

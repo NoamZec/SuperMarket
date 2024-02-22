@@ -43,5 +43,10 @@
         android:name="com.example.supermarket.clean.CleanFragment"
         android:label="Clean"
         tools:layout="@layout/fragment_clean"/>
+    <fragment
+        android:id="@+id/shop"
+        android:name="com.example.supermarket.Shopping.MyShoppingFragment"
+        android:label="My Shopping"
+        tools:layout="@layout/fragment_my_shopping"/>
 
 </navigation>

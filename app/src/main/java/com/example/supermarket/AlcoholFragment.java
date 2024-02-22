@@ -41,7 +41,7 @@ public class AlcoholFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_alcohol, container, false);
         list = root.findViewById(R.id.list);
-        FireBase fireBase = new FireBase(getContext());
+        fireBase = new FireBase(getContext());
      /*
       fireBase.addPostEventListener("Alcohol", value -> {
             if (value instanceof ArrayList<?>) {//check if the value is kind of arrayList
@@ -57,7 +57,7 @@ public class AlcoholFragment extends Fragment {
             }
         });
       */
-        fireBase.addPostEventListener("Alcohol",value -> {
+        fireBase.getInformation("Alcohol",value -> {
             if (value instanceof ArrayList<?>){
                 products = (ArrayList<ProductSec>) value;
                 price = new double[products.size()];
@@ -74,14 +74,16 @@ public class AlcoholFragment extends Fragment {
                     description[i] = products.get(i).getSubtitle();
                 }
             }
-        });
-        MyAdapter adapter = new MyAdapter(getContext(), title, description, photos, price);
-        list.setAdapter(adapter);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-            }
+            MyAdapter adapter = new MyAdapter(getContext(), title, description, photos, price);
+            list.setAdapter(adapter);
+            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                }
+            });
+
         });
         return inflater.inflate(R.layout.fragment_alcohol, container, false);
     }

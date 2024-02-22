@@ -18,6 +18,11 @@ public class ProductSec {
         this.price = price;
         this.productId = generateId();
     }
+
+    public ProductSec() {
+        this.productId = generateId();
+    }
+
     public String getTitle() {
         return title;
     }
