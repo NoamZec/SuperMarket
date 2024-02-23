@@ -108,6 +108,7 @@ public class Admin extends Fragment {
                     // [START upload_create_reference]
                     // Create a storage reference from our app
                     firebase.uploadPic(productSec.getTitle(), productSec, data);
+                    Toast.makeText(getActivity(), "Upload succeed", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "You need to take a picture first", Toast.LENGTH_SHORT).show();
                 }

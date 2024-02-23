@@ -1,9 +1,5 @@
 package com.example.supermarket;
 
-import android.graphics.Bitmap;
-import android.media.Image;
-import android.widget.ImageButton;
-
 import java.util.Random;
 
 public class ProductSec {

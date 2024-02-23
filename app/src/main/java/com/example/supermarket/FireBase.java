@@ -22,6 +22,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FireBase {//constructor
     private final FirebaseAuth auth;
@@ -128,7 +129,11 @@ public class FireBase {//constructor
         mDatabase.child("products").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
-                listener.onListen(getProducts(dataSnapshot, category));
+                try {
+                    listener.onListen(getProducts(dataSnapshot, category));
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -140,19 +145,13 @@ public class FireBase {//constructor
 
     private ArrayList<ProductSec> getProducts(DataSnapshot dataSnapshot, String category) {
         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-            Log.e("ERROR", "1");
             ProductSec product = snapshot.getValue(ProductSec.class);
-            Log.e("ERROR", "2");
             allProducts.add(product);
-            Log.e("ERROR", "3");
         }
 
         for (ProductSec productSec : allProducts) {
-            Log.e("ERROR", "4");
             if (productSec.getCategory().equals(category)) {
-                Log.e("ERROR", "5");
                 products.add(productSec);
-                Log.e("ERROR", "6");
             }
         }
 
@@ -190,20 +189,48 @@ public class FireBase {//constructor
     public void getPicture(ProductSec product, Listener<byte[]> listener) {
 
         final long ONE_MEGABYTE = 5 * (1024 * 1024);
-        Log.e("ERROR", product.getTitle());
         storageRef.child("images").child(product.getTitle() + ".jpg").getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
-                listener.onListen(bytes);
+                try {
+                    listener.onListen(bytes);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Toast.makeText(context, exception.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                Log.e("ERROR", exception.getMessage());
             }
         });
 
     }
+
+//    public byte[] getPicture(ProductSec product) throws InterruptedException {
+//        final List<byte[]> bytesContainer = new ArrayList<>();
+//        final long ONE_MEGABYTE = 5 * (1024 * 1024);
+//        storageRef.child("images").child(product.getTitle() + ".jpg").getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//            @Override
+//            public void onSuccess(byte[] bytes) {
+//                bytesContainer.add(bytes);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception exception) {
+//                Toast.makeText(context, exception.getMessage().toString(), Toast.LENGTH_SHORT).show();
+//                Log.e("ERROR", exception.getMessage());
+//            }
+//        });
+//
+//        while (bytesContainer.isEmpty()) {
+//            Thread.sleep(50);
+//            Log.i("INFO", "SLEEP");
+//        }
+//
+//        return bytesContainer.get(0);
+//    }
 
     public static void findProductId(int id, Listener<Boolean> listener){
         databaseReference.child("products").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -212,10 +239,18 @@ public class FireBase {//constructor
                 if(task.isSuccessful()){
                     for(DataSnapshot snapshot : task.getResult().getChildren()){
                         if(snapshot.child(id + "").exists()){
-                            listener.onListen(true);
+                            try {
+                                listener.onListen(true);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                         else {
-                            listener.onListen(false);
+                            try {
+                                listener.onListen(false);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
                 }

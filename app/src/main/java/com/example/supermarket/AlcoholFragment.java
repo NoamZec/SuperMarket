@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,21 +43,7 @@ public class AlcoholFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_alcohol, container, false);
         list = root.findViewById(R.id.list);
         fireBase = new FireBase(getContext());
-     /*
-      fireBase.addPostEventListener("Alcohol", value -> {
-            if (value instanceof ArrayList<?>) {//check if the value is kind of arrayList
-                ArrayList<ProductSec> products = (ArrayList<ProductSec>) value;
-                int size = 0;
-                if (products.size() % 3 == 0) {
-                    size = products.size()/3;
-                } else {
-                    size = (products.size() / 3) + 1;
-                }
-                for (int i = 0; i < products.size(); i++) {
-                }
-            }
-        });
-      */
+
         fireBase.getInformation("Alcohol",value -> {
             if (value instanceof ArrayList<?>){
                 products = (ArrayList<ProductSec>) value;
@@ -66,24 +53,28 @@ public class AlcoholFragment extends Fragment {
                 title = new String[products.size()];
                 for(int i = 0;i < products.size();i++){
                     price[i]  = products.get(i).getPrice();
-                    fireBase.getPicture(products.get(i), bytes -> {
-                        photos.add(bytes);
-                    });
                     price[i]  = products.get(i).getPrice();
                     title[i] = products.get(i).getTitle();
                     description[i] = products.get(i).getSubtitle();
+                    fireBase.getPicture(products.get(i), bytes -> photos.add(bytes));
+//                    photos.add(fireBase.getPicture(products.get(i)));
+
                 }
+
+                while (photos.isEmpty()) {
+                    Thread.sleep(50);
+                    Log.i("INFO", "SLEEP");
+                }
+
+                MyAdapter adapter = new MyAdapter(getContext(), title, description, photos, price);
+                list.setAdapter(adapter);
+                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    }
+                });
             }
-
-            MyAdapter adapter = new MyAdapter(getContext(), title, description, photos, price);
-            list.setAdapter(adapter);
-            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                }
-            });
-
         });
         return inflater.inflate(R.layout.fragment_alcohol, container, false);
     }
