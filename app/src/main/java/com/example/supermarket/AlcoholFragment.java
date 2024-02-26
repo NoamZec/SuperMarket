@@ -56,7 +56,7 @@ public class AlcoholFragment extends Fragment {
                     price[i]  = products.get(i).getPrice();
                     title[i] = products.get(i).getTitle();
                     description[i] = products.get(i).getSubtitle();
-                    fireBase.getPicture(products.get(i), bytes -> photos.add(bytes));
+                   // fireBase.getPic(products.get(i), bytes -> photos.add(bytes));
 //                    photos.add(fireBase.getPicture(products.get(i)));
 
                 }

@@ -186,26 +186,30 @@ public class FireBase {//constructor
 
     }
 
-    public void getPicture(ProductSec product, Listener<byte[]> listener) {
-
-        final long ONE_MEGABYTE = 5 * (1024 * 1024);
-        storageRef.child("images").child(product.getTitle() + ".jpg").getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                try {
-                    listener.onListen(bytes);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Toast.makeText(context, exception.getMessage().toString(), Toast.LENGTH_SHORT).show();
-                Log.e("ERROR", exception.getMessage());
-            }
-        });
-
+//    public void getPicture(ProductSec product, Listener<byte[]> listener) {
+//
+//        final long ONE_MEGABYTE = 5 * (1024 * 1024);
+//        storageRef.child("images").child(product.getTitle() + ".jpg").getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//            @Override
+//            public void onSuccess(byte[] bytes) {
+//                try {
+//                    listener.onListen(bytes);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception exception) {
+//                Toast.makeText(context, exception.getMessage().toString(), Toast.LENGTH_SHORT).show();
+//                Log.e("ERROR", exception.getMessage());
+//            }
+//        });
+//
+//    }
+    public byte[] getPic(ProductSec product){
+        byte[]bytes =  storageRef.child("images").child(product.getTitle() + ".jpg").getBytes(1024*1024).getResult();
+        return bytes;
     }
 
 //    public byte[] getPicture(ProductSec product) throws InterruptedException {
