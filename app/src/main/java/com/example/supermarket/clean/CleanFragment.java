@@ -1,5 +1,6 @@
 package com.example.supermarket.clean;
 
+import android.content.ClipData;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,60 +8,74 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
+import com.example.supermarket.FireBase;
+import com.example.supermarket.MyAdapter;
+import com.example.supermarket.ProductSec;
 import com.example.supermarket.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CleanFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
 public class CleanFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private FireBase fireBase;
+    private ListView list;
+    private ArrayList<ProductSec> products;
+    private double[] price;
+    private ArrayList<byte[]> photos;
+    private String[] description;
+    private String[] title;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public CleanFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CleanFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static CleanFragment newInstance(String param1, String param2) {
         CleanFragment fragment = new CleanFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_clean, container, false);
+
+        View root = inflater.inflate(R.layout.fragment_alcohol, container, false);
+
+        list = root.findViewById(R.id.list);
+        fireBase = new FireBase(getContext());
+
+        fireBase.getInformation("Clean",value -> {
+            if (value instanceof ArrayList<?>){
+                products = (ArrayList<ProductSec>) value;
+                price = new double[products.size()];
+                photos = new ArrayList<>();
+                description = new String[products.size()];
+                title = new String[products.size()];
+                for(int i = 0;i < products.size();i++){
+                    price[i]  = products.get(i).getPrice();
+                    price[i]  = products.get(i).getPrice();
+                    title[i] = products.get(i).getTitle();
+                    description[i] = products.get(i).getSubtitle();
+                    photos.add(fireBase.getPic(products.get(i)));
+
+                }
+
+                MyAdapter adapter = new MyAdapter(getContext(), title, description, photos, price, products);
+                list.setAdapter(adapter);
+                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        // TODO: go to fragment and show information
+
+                    }
+                });
+
+            }
+        });
+
+        return root;
     }
 }

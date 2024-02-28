@@ -132,6 +132,7 @@ public class FireBase {//constructor
                 try {
                     listener.onListen(getProducts(dataSnapshot, category));
                 } catch (InterruptedException e) {
+                    Log.e("ERROR", e.getMessage());
                     throw new RuntimeException(e);
                 }
             }
@@ -207,8 +208,20 @@ public class FireBase {//constructor
 //        });
 //
 //    }
-    public byte[] getPic(ProductSec product){
-        byte[]bytes =  storageRef.child("images").child(product.getTitle() + ".jpg").getBytes(1024*1024).getResult();
+    public byte[] getPic(ProductSec product) {
+        Task<byte[]> task = storageRef.child("images").child(product.getTitle() + ".jpg").getBytes(1024*1024);
+
+        while (!task.isComplete()) {
+            Log.d("DEBUG", "Debug");
+            Toast.makeText(context, "Please Wait", Toast.LENGTH_SHORT).show();
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        byte[] bytes = task.getResult();
         return bytes;
     }
 

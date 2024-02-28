@@ -19,14 +19,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class AlcoholFragment extends Fragment {
-
-    private AlcoholViewModel2 mViewModel;
     private FireBase fireBase;
-    private ArrayAdapter arrayAdapter;
     private ListView list;
     private ArrayList<ProductSec> products;
     private double[] price;
@@ -36,7 +34,6 @@ public class AlcoholFragment extends Fragment {
     public static AlcoholFragment newInstance() {
         return new AlcoholFragment();
     }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -56,33 +53,21 @@ public class AlcoholFragment extends Fragment {
                     price[i]  = products.get(i).getPrice();
                     title[i] = products.get(i).getTitle();
                     description[i] = products.get(i).getSubtitle();
-                   // fireBase.getPic(products.get(i), bytes -> photos.add(bytes));
-//                    photos.add(fireBase.getPicture(products.get(i)));
+                    photos.add(fireBase.getPic(products.get(i)));
 
                 }
 
-                while (photos.isEmpty()) {
-                    Thread.sleep(50);
-                    Log.i("INFO", "SLEEP");
-                }
-
-                MyAdapter adapter = new MyAdapter(getContext(), title, description, photos, price);
+                MyAdapter adapter = new MyAdapter(getContext(), title, description, photos, price, products);
                 list.setAdapter(adapter);
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                        // TODO: go to fragment and show information
                     }
                 });
+
             }
         });
-        return inflater.inflate(R.layout.fragment_alcohol, container, false);
+        return root;
     }
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(AlcoholViewModel2.class);
-        // TODO: Use the ViewModel
-    }
-
 }
