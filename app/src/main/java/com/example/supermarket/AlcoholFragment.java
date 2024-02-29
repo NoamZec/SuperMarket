@@ -42,19 +42,32 @@ public class AlcoholFragment extends Fragment {
         fireBase = new FireBase(getContext());
 
         fireBase.getInformation("Alcohol",value -> {
-            if (value instanceof ArrayList<?>){
-                products = (ArrayList<ProductSec>) value;
-                price = new double[products.size()];
-                photos = new ArrayList<>();
-                description = new String[products.size()];
-                title = new String[products.size()];
-                for(int i = 0;i < products.size();i++){
-                    price[i]  = products.get(i).getPrice();
-                    price[i]  = products.get(i).getPrice();
-                    title[i] = products.get(i).getTitle();
-                    description[i] = products.get(i).getSubtitle();
-                    photos.add(fireBase.getPic(products.get(i)));
+            if (value instanceof ArrayList<?>) {
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        products = (ArrayList<ProductSec>) value;
+                        price = new double[products.size()];
+                        photos = new ArrayList<>();
+                        description = new String[products.size()];
+                        title = new String[products.size()];
+                        for(int i = 0;i < products.size();i++){
+                            price[i] = products.get(i).getPrice();
+                            price[i] = products.get(i).getPrice();
+                            title[i] = products.get(i).getTitle();
+                            description[i] = products.get(i).getSubtitle();
+                            photos.add(fireBase.getPic(products.get(i)));
 
+                        }
+                    }
+                });
+
+                thread.start();
+
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    Toast.makeText(getContext(), "Waiting for thread failed", Toast.LENGTH_SHORT).show();
                 }
 
                 MyAdapter adapter = new MyAdapter(getContext(), title, description, photos, price, products);

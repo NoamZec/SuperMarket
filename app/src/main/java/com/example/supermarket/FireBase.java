@@ -211,14 +211,25 @@ public class FireBase {//constructor
     public byte[] getPic(ProductSec product) {
         Task<byte[]> task = storageRef.child("images").child(product.getTitle() + ".jpg").getBytes(1024*1024);
 
-        while (!task.isComplete()) {
-            Log.d("DEBUG", "Debug");
-            Toast.makeText(context, "Please Wait", Toast.LENGTH_SHORT).show();
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (!task.isComplete()) {
+                    Log.i("Wait", "Please Wait");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
+        });
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            Toast.makeText(context, "Waiting for thread failed", Toast.LENGTH_SHORT).show();
         }
 
         byte[] bytes = task.getResult();
