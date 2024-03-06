@@ -1,15 +1,21 @@
 package com.example.supermarket;
 
+import static android.app.Activity.RESULT_OK;
+
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,10 +81,18 @@ public class AlcoholFragment extends Fragment {
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        // TODO: go to fragment and show information
+                        // TODO: pass information from one fragment to another
+                        PicFragment picFragment = new PicFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("title", title[i]);
+                        bundle.putString("description", description[i]);
+                        bundle.putByteArray("photos", photos.get(i));
+                        bundle.putDouble("price", price[i]);
+                        bundle.putString("category", products.get(i).getCategory());
+                        bundle.putInt("id", products.get(i).getProductId());
+                        ((HomeActivity) getActivity()).replace(picFragment, bundle);
                     }
                 });
-
             }
         });
         return root;

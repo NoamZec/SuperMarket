@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -77,5 +78,13 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+    public void replace(Fragment fragment, Bundle extras) {
+        fragment.setArguments(extras);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.nav_host_fragment_content_home, fragment)
+                .commit();
     }
 }

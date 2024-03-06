@@ -1,10 +1,11 @@
 package com.example.supermarket.clean;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -48,7 +49,6 @@ public class CleanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View root = inflater.inflate(R.layout.fragment_clean, container, false);
         progressBar = root.findViewById(R.id.progressBar);
         btn = root.findViewById(R.id.btn);
@@ -82,7 +82,6 @@ public class CleanFragment extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         // TODO: go to fragment and show information
-
                     }
                 });
 
