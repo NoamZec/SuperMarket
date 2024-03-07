@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.supermarket.FireBase;
+import com.example.supermarket.LoadingDialogBar;
 import com.example.supermarket.MyAdapter;
 import com.example.supermarket.ProductSec;
 import com.example.supermarket.R;
@@ -33,8 +34,7 @@ public class CleanFragment extends Fragment {
     private ArrayList<byte[]> photos;
     private String[] description;
     private String[] title;
-    private ProgressBar progressBar;
-    private Button btn;
+    private LoadingDialogBar loadingDialogBar;
 
     public static CleanFragment newInstance(String param1, String param2) {
         CleanFragment fragment = new CleanFragment();
@@ -50,15 +50,9 @@ public class CleanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_clean, container, false);
-        progressBar = root.findViewById(R.id.progressBar);
-        btn = root.findViewById(R.id.btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                download(getView());
-            }
-        });
         list = root.findViewById(R.id.list);
+        loadingDialogBar = new LoadingDialogBar(getContext());
+        loadingDialogBar.ShowDialog("Loading...");
         fireBase = new FireBase(getContext());
         fireBase.getInformation("Clean",value -> {
             if (value instanceof ArrayList<?>){
@@ -85,34 +79,12 @@ public class CleanFragment extends Fragment {
                     }
                 });
 
+                loadingDialogBar.HideDialog();
+
             }
         });
 
         return root;
     }
-    public void download(View view){
-        CountDownTimer countDownTimer = new CountDownTimer(10000,500) {
-            @Override
-            public void onTick(long l) {
-                int current = progressBar.getProgress();
-                int secondsCurrent = progressBar.getSecondaryProgress();
-                if(current < progressBar.getMax()){
-                    progressBar.setProgress(current + 10);
-                }else{
-                    progressBar.setProgress(0);
-                }
-                if(secondsCurrent < progressBar.getMax()){
-                    progressBar.setSecondaryProgress(current + 5);
-                }else{
-                    progressBar.setSecondaryProgress(0);
-                }
-            }
 
-            @Override
-            public void onFinish() {
-                Toast.makeText(getContext(), "Finish", Toast.LENGTH_SHORT).show();
-            }
-        };
-        countDownTimer.start();
-    }
 }
