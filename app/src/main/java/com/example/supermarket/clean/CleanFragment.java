@@ -1,5 +1,8 @@
 package com.example.supermarket.clean;
 
+import static com.example.supermarket.ProducrFragment.ARG_PARAM1;
+import static com.example.supermarket.ProducrFragment.ARG_PARAM2;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
@@ -20,6 +23,7 @@ import android.widget.Toast;
 import com.example.supermarket.FireBase;
 import com.example.supermarket.LoadingDialogBar;
 import com.example.supermarket.MyAdapter;
+import com.example.supermarket.PicFragment;
 import com.example.supermarket.ProductSec;
 import com.example.supermarket.R;
 
@@ -28,7 +32,7 @@ import java.util.ArrayList;
 public class CleanFragment extends Fragment {
 
     private FireBase fireBase;
-    private ListView list;
+    private ListView list1;
     private ArrayList<ProductSec> products;
     private double[] price;
     private ArrayList<byte[]> photos;
@@ -40,17 +44,12 @@ public class CleanFragment extends Fragment {
         CleanFragment fragment = new CleanFragment();
         return fragment;
     }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_clean, container, false);
-        list = root.findViewById(R.id.list);
+        list1 = root.findViewById(R.id.list1);
         loadingDialogBar = new LoadingDialogBar(getContext());
         loadingDialogBar.ShowDialog("Loading...");
         fireBase = new FireBase(getContext());
@@ -67,18 +66,23 @@ public class CleanFragment extends Fragment {
                     title[i] = products.get(i).getTitle();
                     description[i] = products.get(i).getSubtitle();
                     photos.add(fireBase.getPic(products.get(i)));
-
                 }
-
                 MyAdapter adapter = new MyAdapter(getContext(), title, description, photos, price, products);
-                list.setAdapter(adapter);
-                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                list1.setAdapter(adapter);
+                list1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        // TODO: go to fragment and show information
+                        // TODO: go to fragment and show information in addition I need to know how to pass everything...
+                        String subtitle = products.get(i).getSubtitle();
+                        double price= products.get(i).getPrice();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("subtitle",subtitle);
+                        bundle.putDouble("price",price);
+                        PicFragment fragment = PicFragment.newInstance("param1","param2",subtitle);
+                        fragment.setArgument(bundle);
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.app_bar_home,fragment).commit();
                     }
                 });
-
                 loadingDialogBar.HideDialog();
 
             }

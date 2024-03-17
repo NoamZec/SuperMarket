@@ -93,39 +93,6 @@ public class FireBase {//constructor
     }
 
     public void getInformation(String category, Listener<ArrayList<ProductSec>> listener) {
-        // [START post_value_event_listener]
-   //     ValueEventListener productListener = new ValueEventListener() {
-       //     @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // Get Post object and use the values to update the UI
-////                ProductSec product = dataSnapshot.getValue(ProductSec.class);
-////                if (product.getCategory().equals(category)) {
-////
-////                }
-//
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    ProductSec product = snapshot.getValue(ProductSec.class);
-//                    allProducts.add(product);
-//                }
-//
-//                for (ProductSec productSec : allProducts) {
-//                    if (productSec.getCategory().equals(category)) {
-//                        products.add(productSec);
-//                    }
-//                }
-//
-//
-//                listener.onListen(products);
-//            }
-
-
-//          //  @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//            }
-//        };
-//        databaseReference.addValueEventListener(productListener);
-//        // [END post_value_event_listener]
         mDatabase.child("products").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
@@ -186,28 +153,6 @@ public class FireBase {//constructor
         });
 
     }
-
-//    public void getPicture(ProductSec product, Listener<byte[]> listener) {
-//
-//        final long ONE_MEGABYTE = 5 * (1024 * 1024);
-//        storageRef.child("images").child(product.getTitle() + ".jpg").getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//            @Override
-//            public void onSuccess(byte[] bytes) {
-//                try {
-//                    listener.onListen(bytes);
-//                } catch (InterruptedException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//                Toast.makeText(context, exception.getMessage().toString(), Toast.LENGTH_SHORT).show();
-//                Log.e("ERROR", exception.getMessage());
-//            }
-//        });
-//
-//    }
     public byte[] getPic(ProductSec product) {
         Task<byte[]> task = storageRef.child("images").child(product.getTitle() + ".jpg").getBytes(1024*1024);
 
@@ -235,30 +180,6 @@ public class FireBase {//constructor
         byte[] bytes = task.getResult();
         return bytes;
     }
-
-//    public byte[] getPicture(ProductSec product) throws InterruptedException {
-//        final List<byte[]> bytesContainer = new ArrayList<>();
-//        final long ONE_MEGABYTE = 5 * (1024 * 1024);
-//        storageRef.child("images").child(product.getTitle() + ".jpg").getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//            @Override
-//            public void onSuccess(byte[] bytes) {
-//                bytesContainer.add(bytes);
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//                Toast.makeText(context, exception.getMessage().toString(), Toast.LENGTH_SHORT).show();
-//                Log.e("ERROR", exception.getMessage());
-//            }
-//        });
-//
-//        while (bytesContainer.isEmpty()) {
-//            Thread.sleep(50);
-//            Log.i("INFO", "SLEEP");
-//        }
-//
-//        return bytesContainer.get(0);
-//    }
 
     public static void findProductId(int id, Listener<Boolean> listener){
         databaseReference.child("products").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {

@@ -36,7 +36,6 @@ public class MyAdapter extends BaseAdapter {
         this.price = price;
         this.products = products;
     }
-
     @Override
     public int getCount() {
         return this.products.size();

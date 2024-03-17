@@ -37,45 +37,33 @@ public class AlcoholFragment extends Fragment {
     private ArrayList<byte[]> photos;
     private String[] description;
     private String[] title;
+    private LoadingDialogBar loadingDialogBar;
     public static AlcoholFragment newInstance() {
-        return new AlcoholFragment();
+        AlcoholFragment fragment = new AlcoholFragment();
+        return fragment;
     }
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_alcohol, container, false);
         list = root.findViewById(R.id.list);
+        loadingDialogBar = new LoadingDialogBar(getContext());
+        loadingDialogBar.ShowDialog("Loading...");
         fireBase = new FireBase(getContext());
-
         fireBase.getInformation("Alcohol",value -> {
-            if (value instanceof ArrayList<?>) {
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        products = (ArrayList<ProductSec>) value;
-                        price = new double[products.size()];
-                        photos = new ArrayList<>();
-                        description = new String[products.size()];
-                        title = new String[products.size()];
-                        for(int i = 0;i < products.size();i++){
-                            price[i] = products.get(i).getPrice();
-                            price[i] = products.get(i).getPrice();
-                            title[i] = products.get(i).getTitle();
-                            description[i] = products.get(i).getSubtitle();
-                            photos.add(fireBase.getPic(products.get(i)));
-
-                        }
-                    }
-                });
-
-                thread.start();
-
-                try {
-                    thread.join();
-                } catch (InterruptedException e) {
-                    Toast.makeText(getContext(), "Waiting for thread failed", Toast.LENGTH_SHORT).show();
+            if (value instanceof ArrayList<?>){
+                products = (ArrayList<ProductSec>) value;
+                price = new double[products.size()];
+                photos = new ArrayList<>();
+                description = new String[products.size()];
+                title = new String[products.size()];
+                for(int i = 0;i < products.size();i++){
+                    price[i]  = products.get(i).getPrice();
+                    price[i]  = products.get(i).getPrice();
+                    title[i] = products.get(i).getTitle();
+                    description[i] = products.get(i).getSubtitle();
+                    photos.add(fireBase.getPic(products.get(i)));
                 }
-
                 MyAdapter adapter = new MyAdapter(getContext(), title, description, photos, price, products);
                 list.setAdapter(adapter);
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -90,9 +78,9 @@ public class AlcoholFragment extends Fragment {
                         bundle.putDouble("price", price[i]);
                         bundle.putString("category", products.get(i).getCategory());
                         bundle.putInt("id", products.get(i).getProductId());
-                        ((HomeActivity) getActivity()).replace(picFragment, bundle);
                     }
                 });
+                loadingDialogBar.HideDialog();
             }
         });
         return root;
